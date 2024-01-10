@@ -1,12 +1,15 @@
 package com.epicode.U5D1.entities;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
+@PropertySource("application.properties")
 public class AppConfig {
 	@Bean(name = "toppings_tomato")
 	public Topping toppingTomatoBean() {
@@ -107,5 +110,15 @@ public class AppConfig {
 		toppingsList.add(toppingPineappleBean());
 
 		return new Menu(pizzaList, drinkList, toppingsList);
+	}
+
+	@Bean("tavolo_1")
+	public Tavolo getTavolo1(@Value("${costocoperto}") double costoCoperto){
+		return new Tavolo(1,5,StatoTavolo.LIBERO, costoCoperto);
+	}
+
+	@Bean("tavolo_2")
+	public Tavolo getTavolo2(@Value("${costocoperto}") double costoCoperto){
+		return new Tavolo(2,4,StatoTavolo.LIBERO, costoCoperto);
 	}
 }
